@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+
 import { Inter, Outfit, Orbitron, Michroma } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -71,6 +72,7 @@ export default function RootLayout({
         <Footer />
       </body>
     </html>
+
 
   );
 }

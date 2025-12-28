@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, LayoutDashboard } from "lucide-react";
+import { Menu, X, LayoutDashboard, User } from "lucide-react";
+
 import { motion, AnimatePresence } from "framer-motion";
 
 
@@ -47,12 +48,14 @@ export default function Navbar() {
                 </div>
 
                 {/* Right Brand / Auth (Desktop) & Mobile Toggle */}
+                {/* Right Brand / Auth (Desktop) & Mobile Toggle */}
                 <div className="flex items-center gap-4 z-50 flex-shrink-0">
                     {/* Desktop Auth */}
 
 
                     {/* Mobile Menu Toggle */}
                     <div className="md:hidden flex items-center gap-4">
+
 
                         <button onClick={toggleMenu} aria-label="Toggle Menu" className="focus:outline-none text-white p-1">
                             {isOpen ? <X size={24} /> : <Menu size={24} />}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React from "react";
@@ -129,7 +130,7 @@ export default function Services() {
                         transition={{ delay: 0.2 }}
                         className="text-fluid-body text-neutral-400 leading-relaxed"
                     >
-                        We don’t just build "websites". We build client-generating assets. Here is how we help you win.
+                        We don’t just build &quot;websites&quot;. We build client-generating assets. Here is how we help you win.
                     </motion.p>
                 </div>
 

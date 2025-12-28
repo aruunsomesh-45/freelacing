@@ -1,5 +1,5 @@
-"use client";
-
+import Link from "next/link";
+import { Instagram, Linkedin, Twitter } from "lucide-react";
 
 export default function Footer() {
     return (
@@ -12,18 +12,18 @@ export default function Footer() {
                         <p className="text-neutral-400 leading-relaxed mb-6">
                             Helping ambitious brands build scalable digital products that drive real business growth.
                         </p>
-                        <a href="/contact#contact" className="inline-flex items-center justify-center px-6 py-3 bg-white text-black font-bold uppercase tracking-wider text-sm rounded hover:bg-neutral-200 transition-colors">
+                        <Link href="/contact#contact" className="inline-flex items-center justify-center px-6 py-3 bg-white text-black font-bold uppercase tracking-wider text-sm rounded hover:bg-neutral-200 transition-colors">
                             Contact Us
-                        </a>
+                        </Link>
                     </div>
 
                     {/* Quick Links */}
                     <div>
                         <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">Navigation</h4>
                         <ul className="space-y-3">
-                            <li><a href="/" className="text-neutral-400 hover:text-white transition-colors">Home</a></li>
+                            <li><Link href="/" className="text-neutral-400 hover:text-white transition-colors">Home</Link></li>
                             <li><a href="#services" className="text-neutral-400 hover:text-white transition-colors">Services</a></li>
-                            <li><a href="/projects" className="text-neutral-400 hover:text-white transition-colors">Our Work</a></li>
+                            <li><Link href="/projects" className="text-neutral-400 hover:text-white transition-colors">Our Work</Link></li>
                             <li><a href="#about" className="text-neutral-400 hover:text-white transition-colors">About</a></li>
                             <li><a href="#contact" className="text-neutral-400 hover:text-white transition-colors">Contact</a></li>
                         </ul>
@@ -50,10 +50,20 @@ export default function Footer() {
                             <li className="text-neutral-400">+1 (234) 567-890</li>
                         </ul>
                         <div className="flex gap-4">
-                            {/* Social placeholders */}
-                            <div className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-neutral-400 hover:bg-white/10 hover:text-white transition-colors cursor-pointer">X</div>
-                            <div className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-neutral-400 hover:bg-white/10 hover:text-white transition-colors cursor-pointer">In</div>
-                            <div className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-neutral-400 hover:bg-white/10 hover:text-white transition-colors cursor-pointer">Ig</div>
+                            <a href="https://www.linkedin.com/in/arun-s-163578390" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-neutral-400 hover:bg-blue-600 hover:text-white transition-all cursor-pointer">
+                                <Linkedin size={18} />
+                            </a>
+                            <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-neutral-400 hover:bg-neutral-800 hover:text-white transition-all cursor-pointer">
+                                <Twitter size={18} />
+                            </a>
+                            <a href="https://www.instagram.com/andrea_the_creators?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-neutral-400 hover:bg-purple-600 hover:text-white transition-all cursor-pointer">
+                                <Instagram size={18} />
+                            </a>
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=zokuai7@gmail.com&su=Project%20Inquiry%20-%20%5BYour%20Name%5D&body=Hi%20Andrea%2C%0A%0AI'm%20interested%20in%20starting%20a%20project%20and%20would%20like%20to%20discuss%20more%20details...%0A%0ABest%20regards%2C%0A%5BYour%20Name%5D" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-neutral-400 hover:bg-red-600 hover:text-white transition-all cursor-pointer">
+                                <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M24 4.5v15c0 .85-.65 1.5-1.5 1.5H21V7l-9 7L3 7v14H1.5c-.85 0-1.5-.65-1.5-1.5v-15c0-.4.15-.75.45-1.05.3-.3.65-.45 1.05-.45H3l9 7 9-7h1.5c.4 0 .75.15 1.05.45.3.3.45.65.45 1.05z" />
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>

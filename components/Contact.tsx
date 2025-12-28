@@ -3,16 +3,18 @@
 import { createClient } from "@/utils/supabase/client";
 import React, { useState, useEffect } from "react";
 import {
-    Mail, Phone, Calendar as CalendarIcon, MessageSquare,
+    Phone, Calendar as CalendarIcon, MessageSquare,
     ArrowRight, CheckCircle2,
-    Clock, Instagram, Linkedin, Send, CheckCircle, AlertCircle, Loader2
+    Clock, Instagram, Send, CheckCircle, AlertCircle, Loader2, Linkedin, ExternalLink, Twitter, Mic
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { format } from 'date-fns';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
+import Image from "next/image";
 import { getAvailableSlots, bookAppointment } from "@/app/book/actions";
+import { useVoiceAgent } from "@/hooks/use-voice-agent";
 
 export default function Contact({ hideHero = false }: { hideHero?: boolean }) {
     // --- BOOKING SYSTEM STATE ---
@@ -24,9 +26,13 @@ export default function Contact({ hideHero = false }: { hideHero?: boolean }) {
     const [bookingError, setBookingError] = useState('');
     const [bookingSuccess, setBookingSuccess] = useState(false);
 
+    // --- VOICE AGENT ---
+    const { startCall, isConnected, isConnecting, endCall } = useVoiceAgent();
+
     // --- BOOKING SYSTEM EFFECTS & HANDLERS ---
     useEffect(() => {
         if (selectedDate) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setBookingLoading(true);
             setBookingError('');
             setSelectedTime(null);
@@ -78,10 +84,13 @@ export default function Contact({ hideHero = false }: { hideHero?: boolean }) {
         <section id="contact" className={`min-h-screen ${hideHero ? 'pt-12' : 'pt-32'} pb-24 bg-black relative overflow-hidden z-20`}>
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0 opacity-20">
-                <img
+                <Image
                     src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"
                     alt="Dark Background"
-                    className="w-full h-full object-cover grayscale"
+                    fill
+                    sizes="100vw"
+                    className="object-cover grayscale"
+                    priority={false}
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black"></div>
             </div>
@@ -113,9 +122,6 @@ export default function Contact({ hideHero = false }: { hideHero?: boolean }) {
                     </div>
                     <div className="absolute top-8 right-8 text-[10px] font-mono text-white/30 tracking-widest uppercase hidden md:block text-right">
                         Available <br /> Worldwide
-                    </div>
-                    <div className="absolute bottom-8 left-8 text-[10px] font-mono text-white/30 tracking-widest uppercase hidden md:block">
-                        EST. 2024
                     </div>
 
                     {/* Noise Overlay */}
@@ -293,6 +299,67 @@ export default function Contact({ hideHero = false }: { hideHero?: boolean }) {
                     </p>
                 </div>
 
+                {/* --- NEW VOICE AGENT SECTION --- */}
+                <div className="mb-24 relative overflow-hidden rounded-3xl bg-neutral-900/50 border border-white/10 p-8 md:p-12 text-center group">
+
+                    <div className="absolute inset-0 z-0 opacity-40 mix-blend-screen pointer-events-none">
+                        <video
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            preload="none"
+                            className="w-full h-full object-cover"
+                        >
+                            <source src="/effect_mask.webm" type="video/webm" />
+                        </video>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-900/20 to-blue-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-0"></div>
+                    {/* Decorative Dots */}
+                    <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
+
+                    <div className="relative z-10 max-w-3xl mx-auto">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono uppercase tracking-widest text-purple-400 mb-6">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+                            </span>
+                            Live AI Demo
+                        </div>
+
+                        <h2 className="text-3xl md:text-5xl font-black font-heading text-white mb-6">
+                            Have questions? <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
+                                Just Ask Andrea AI.
+                            </span>
+                        </h2>
+
+                        <p className="text-neutral-400 text-lg mb-10 leading-relaxed">
+                            Skip the forms. Talk directly to our intelligent voice agent to get instant answers about services, pricing, and project fit.
+                        </p>
+
+                        <button
+                            onClick={isConnected ? endCall : startCall}
+                            disabled={isConnecting}
+                            className={`relative group px-8 py-4 rounded-full font-bold uppercase tracking-wider text-sm transition-all duration-300 flex items-center justify-center gap-3 mx-auto shadow-[0_0_40px_-10px_rgba(147,51,234,0.3)] hover:shadow-[0_0_60px_-10px_rgba(147,51,234,0.5)] ${isConnected
+                                ? "bg-red-600 text-white hover:bg-red-700"
+                                : "bg-white text-black hover:scale-105"
+                                }`}
+                        >
+                            {isConnecting ? (
+                                <Loader2 className="animate-spin" />
+                            ) : (
+                                <Mic size={20} className={isConnected ? "animate-pulse" : ""} />
+                            )}
+                            {isConnected ? "End Conversation" : isConnecting ? "Connecting..." : "Start Voice Conversation"}
+                        </button>
+
+                        <p className="mt-6 text-xs text-neutral-500">
+                            Powered by Retell AI & OpenAI GPT-4o
+                        </p>
+                    </div>
+                </div>
+
                 <div id="contact-columns" className="flex flex-col items-center justify-center max-w-4xl mx-auto pt-10 border-t border-white/5">
 
                     {/* DIRECT CONTACT CENTERED */}
@@ -309,14 +376,16 @@ export default function Contact({ hideHero = false }: { hideHero?: boolean }) {
                                         proximity={64}
                                         inactiveZone={0.01}
                                     />
-                                    <a href="mailto:zokuai7@gmail.com" className="relative flex items-center gap-4 p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-blue-500/30 transition-all z-10 h-full">
-                                        <div className="w-12 h-12 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
-                                            <Mail size={22} />
+                                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=zokuai7@gmail.com&su=Project%20Inquiry%20-%20%5BYour%20Name%5D&body=Hi%20Andrea%2C%0A%0AI'm%20interested%20in%20starting%20a%20project%20and%20would%20like%20to%20discuss%20more%20details...%0A%0ABest%20regards%2C%0A%5BYour%20Name%5D" target="_blank" rel="noopener noreferrer" className="relative flex items-center gap-4 p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-red-500/30 transition-all z-10 h-full">
+                                        <div className="w-12 h-12 rounded-full bg-red-500/10 text-red-500 flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
+                                            <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M24 4.5v15c0 .85-.65 1.5-1.5 1.5H21V7l-9 7L3 7v14H1.5c-.85 0-1.5-.65-1.5-1.5v-15c0-.4.15-.75.45-1.05.3-.3.65-.45 1.05-.45H3l9 7 9-7h1.5c.4 0 .75.15 1.05.45.3.3.45.65.45 1.05z" />
+                                            </svg>
                                         </div>
                                         <div>
                                             <div className="font-bold text-white">Email</div>
                                             <div className="text-sm text-neutral-400 break-all">zokuai7@gmail.com</div>
-                                            <div className="text-xs text-blue-400 mt-1">Best for detailed discussions</div>
+                                            <div className="text-xs text-red-500 mt-1">Best for detailed discussions</div>
                                         </div>
                                     </a>
                                 </div>
@@ -375,6 +444,16 @@ export default function Contact({ hideHero = false }: { hideHero?: boolean }) {
                                                 {selectedDate && format(selectedDate, 'MMM do')} at {selectedTime}
                                             </span>
                                         </p>
+                                        <div className="mb-6">
+                                            <a
+                                                href="https://cal.com/zoku-ai-skq2uy/30min"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600/20 text-blue-400 border border-blue-500/30 rounded-lg text-xs font-bold hover:bg-blue-600 hover:text-white transition-all"
+                                            >
+                                                <ExternalLink size={14} /> Add to Cal.com
+                                            </a>
+                                        </div>
                                         <button
                                             onClick={() => {
                                                 setBookingSuccess(false);
@@ -552,10 +631,19 @@ export default function Contact({ hideHero = false }: { hideHero?: boolean }) {
 
                                 {/* SOCIALS */}
                                 <div className="flex gap-4 mt-8 pt-6 border-t border-white/5 justify-center">
-                                    <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:text-white hover:bg-white/10 transition-colors">
+
+                                    <a href="https://www.linkedin.com/in/arun-s-163578390" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:bg-blue-600 transition-colors">
                                         <Linkedin size={18} />
                                     </a>
-                                    <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:text-white hover:bg-white/10 transition-colors">
+                                    <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors">
+                                        <Twitter size={18} />
+                                    </a>
+                                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=zokuai7@gmail.com&su=Project%20Inquiry%20-%20%5BYour%20Name%5D&body=Hi%20Andrea%2C%0A%0AI'm%20interested%20in%20starting%20a%20project%20and%20would%20like%20to%20discuss%20more%20details...%0A%0ABest%20regards%2C%0A%5BYour%20Name%5D" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-neutral-400 hover:text-red-500 hover:bg-white/10 transition-colors">
+                                        <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M24 4.5v15c0 .85-.65 1.5-1.5 1.5H21V7l-9 7L3 7v14H1.5c-.85 0-1.5-.65-1.5-1.5v-15c0-.4.15-.75.45-1.05.3-.3.65-.45 1.05-.45H3l9 7 9-7h1.5c.4 0 .75.15 1.05.45.3.3.45.65.45 1.05z" />
+                                        </svg>
+                                    </a>
+                                    <a href="https://www.instagram.com/andrea_the_creators?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:bg-purple-600 transition-colors">
                                         <Instagram size={18} />
                                     </a>
                                 </div>

@@ -1,0 +1,225 @@
+
+> free@0.1.0 lint
+> eslint
+
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\app\admin\page.tsx
+    6:27  warning  'MessageSquare' is defined but never used                                                                                         @typescript-eslint/no-unused-vars
+    6:83  warning  'User' is defined but never used                                                                                                  @typescript-eslint/no-unused-vars
+   57:60  error    Unexpected any. Specify a different type                                                                                          @typescript-eslint/no-explicit-any
+   87:8   warning  React Hook useEffect has missing dependencies: 'ADMIN_EMAIL' and 'fetchData'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+  156:23  error    Unexpected any. Specify a different type                                                                                          @typescript-eslint/no-explicit-any
+  210:23  warning  'days' is assigned a value but never used                                                                                         @typescript-eslint/no-unused-vars
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\app\book\actions.ts
+   4:56  warning  'set' is defined but never used                  @typescript-eslint/no-unused-vars
+   4:61  warning  'startOfDay' is defined but never used           @typescript-eslint/no-unused-vars
+  31:11  warning  'startRange' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  32:11  warning  'endRange' is assigned a value but never used    @typescript-eslint/no-unused-vars
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\app\case-studies\automating-support\page.tsx
+    9:35   warning  'Target' is defined but never used                               @typescript-eslint/no-unused-vars
+   11:25   warning  'Clock' is defined but never used                                @typescript-eslint/no-unused-vars
+   11:32   warning  'ShieldCheck' is defined but never used                          @typescript-eslint/no-unused-vars
+  243:29   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  243:259  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\app\case-studies\growth-engine\page.tsx
+   10:5    warning  'LineChart' is defined but never used                            @typescript-eslint/no-unused-vars
+  243:29   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  243:215  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\app\case-studies\scaling-financeflow\page.tsx
+   10:5    warning  'TrendingDown' is defined but never used                         @typescript-eslint/no-unused-vars
+   10:19   warning  'Zap' is defined but never used                                  @typescript-eslint/no-unused-vars
+   10:24   warning  'Users' is defined but never used                                @typescript-eslint/no-unused-vars
+  173:41   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  173:54   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  243:29   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  243:262  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\app\features\page.tsx
+  326:41  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  362:41  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  397:41  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\app\form-a\page.tsx
+  14:38  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  58:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\app\form-b\page.tsx
+  14:38  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  58:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\app\seo\SeoContent.tsx
+    4:34  warning  'Search' is defined but never used                               @typescript-eslint/no-unused-vars
+    4:54  warning  'CheckCircle2' is defined but never used                         @typescript-eslint/no-unused-vars
+  101:36  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  101:48  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  175:95  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\app\services\page.tsx
+   8:28  warning  'Cpu' is defined but never used                                  @typescript-eslint/no-unused-vars
+  60:33  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  60:69  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  70:33  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  70:58  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  80:33  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  80:65  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\check_env.js
+  1:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\About.tsx
+  3:10  warning  'ArrowRight' is defined but never used          @typescript-eslint/no-unused-vars
+  9:7   warning  'strengths' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\AboutGrid.tsx
+  122:63  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\AboutGrid.tsx:122:63
+  120 |                                                 repeat: i % 2 !== 0 ? Infinity : 0,
+  121 |                                                 repeatType: "reverse",
+> 122 |                                                 duration: 2 + Math.random(),
+      |                                                               ^^^^^^^^^^^^^ Cannot call impure function
+  123 |                                                 delay: 1 + i * 0.1
+  124 |                                             }
+  125 |                                         }}  react-hooks/purity
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\AntiGravityContactForm.tsx
+   5:18  warning  'AnimatePresence' is defined but never used                      @typescript-eslint/no-unused-vars
+  65:60  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\Contact.tsx
+   3:10  warning  'createClient' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+   6:5   warning  'Phone' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+   7:5   warning  'ArrowRight' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+   7:17  warning  'CheckCircle2' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+   8:23  warning  'Send' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+  34:13  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\Contact.tsx:34:13
+  32 |     useEffect(() => {
+  33 |         if (selectedDate) {
+> 34 |             setBookingLoading(true);
+     |             ^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  35 |             setBookingError('');
+  36 |             setSelectedTime(null);
+  37 |  react-hooks/set-state-in-effect
+  85:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @next/next/no-img-element
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\ContactHero.tsx
+  5:10  warning  'useEffect' is defined but never used              @typescript-eslint/no-unused-vars
+  9:7   warning  'FLOAT_CONFIG' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\ContactVisualHero.tsx
+   3:25  warning  'useState' is defined but never used                  @typescript-eslint/no-unused-vars
+   3:35  warning  'useEffect' is defined but never used                 @typescript-eslint/no-unused-vars
+   4:70  warning  'useMotionTemplate' is defined but never used         @typescript-eslint/no-unused-vars
+   5:24  warning  'Copy' is defined but never used                      @typescript-eslint/no-unused-vars
+   5:30  warning  'Mail' is defined but never used                      @typescript-eslint/no-unused-vars
+   5:36  warning  'CheckCircle' is defined but never used               @typescript-eslint/no-unused-vars
+   5:49  warning  'Component' is defined but never used                 @typescript-eslint/no-unused-vars
+  22:13  warning  'scrollYProgress' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\Footer.tsx
+  23:33  error  Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\Navbar.tsx
+   3:20  warning  'useEffect' is defined but never used              @typescript-eslint/no-unused-vars
+   5:19  warning  'LayoutDashboard' is defined but never used        @typescript-eslint/no-unused-vars
+   5:36  warning  'Mic' is defined but never used                    @typescript-eslint/no-unused-vars
+   5:41  warning  'Loader2' is defined but never used                @typescript-eslint/no-unused-vars
+  13:13  warning  'startCall' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  13:24  warning  'isConnected' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  13:37  warning  'isConnecting' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  17:11  warning  'menuVariants' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\ParallaxHero.tsx
+  5:8   warning  'Image' is defined but never used   @typescript-eslint/no-unused-vars
+  7:28  warning  'Rocket' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\ProcessWorkflow.tsx
+   4:18  warning  'AnimatePresence' is defined but never used  @typescript-eslint/no-unused-vars
+  23:11  error    Unexpected any. Specify a different type     @typescript-eslint/no-explicit-any
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\ProjectForm.tsx
+    6:10  warning  'Send' is defined but never used                       @typescript-eslint/no-unused-vars
+    6:76  warning  'Paperclip' is defined but never used                  @typescript-eslint/no-unused-vars
+    6:87  warning  'X' is defined but never used                          @typescript-eslint/no-unused-vars
+  104:11  warning  'selectedFeatures' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  162:36  error    Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+  206:25  error    Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\Services.tsx
+   11:5   warning  'Puzzle' is defined but never used                               @typescript-eslint/no-unused-vars
+   12:5   warning  'Sparkles' is defined but never used                             @typescript-eslint/no-unused-vars
+   13:5   warning  'ShoppingCart' is defined but never used                         @typescript-eslint/no-unused-vars
+   14:5   warning  'User' is defined but never used                                 @typescript-eslint/no-unused-vars
+   15:5   warning  'Bot' is defined but never used                                  @typescript-eslint/no-unused-vars
+   16:5   warning  'Clapperboard' is defined but never used                         @typescript-eslint/no-unused-vars
+   24:11  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  132:45  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  132:54  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\ServicesHero.tsx
+  4:46  warning  'MonitorPlay' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\SimpleContactForm.tsx
+  55:25  error  Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  69:75  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\VoiceAgentButton.tsx
+  3:15  warning  'Phone' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\ui\ai-chat-window.tsx
+  4:46  warning  'RefreshCw' is defined but never used        @typescript-eslint/no-unused-vars
+  5:18  warning  'AnimatePresence' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\ui\expand-cards.tsx
+   76:47  warning  The ref value 'sectionRef.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'sectionRef.current' to a variable inside the effect, and use that variable in the cleanup function                      react-hooks/exhaustive-deps
+  119:33  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\ui\full-screen-scroll-fx.tsx
+  106:13  warning  'smoothScroll' is assigned a value but never used                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+  462:29  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  463:29  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  464:32  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  465:32  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  466:33  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  467:28  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  468:32  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  469:32  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  475:33  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  496:49  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\components\ui\hero-3.tsx
+  135:29  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\context\VoiceAgentContext.tsx
+  85:23  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\lib\booking-utils.ts
+  1:10  warning  'startOfDay' is defined but never used  @typescript-eslint/no-unused-vars
+  1:22  warning  'endOfDay' is defined but never used    @typescript-eslint/no-unused-vars
+  1:32  warning  'addMinutes' is defined but never used  @typescript-eslint/no-unused-vars
+  1:44  warning  'format' is defined but never used      @typescript-eslint/no-unused-vars
+  1:52  warning  'isBefore' is defined but never used    @typescript-eslint/no-unused-vars
+  1:62  warning  'isEqual' is defined but never used     @typescript-eslint/no-unused-vars
+  1:71  warning  'parse' is defined but never used       @typescript-eslint/no-unused-vars
+  1:78  warning  'isAfter' is defined but never used     @typescript-eslint/no-unused-vars
+
+C:\Users\aruun\OneDrive\Documents\Desktop\free\utils\supabase\middleware.ts
+  20:58  warning  'options' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 126 problems (47 errors, 79 warnings)
+

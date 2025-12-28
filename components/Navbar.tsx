@@ -2,14 +2,15 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, LayoutDashboard, User } from "lucide-react";
+import { Menu, X, LayoutDashboard, Mic, Loader2 } from "lucide-react";
+import { useVoiceAgent } from "@/hooks/use-voice-agent";
 
 import { motion, AnimatePresence } from "framer-motion";
 
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
-
+    const { startCall, isConnected, isConnecting } = useVoiceAgent();
 
     const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -50,13 +51,11 @@ export default function Navbar() {
                 {/* Right Brand / Auth (Desktop) & Mobile Toggle */}
                 {/* Right Brand / Auth (Desktop) & Mobile Toggle */}
                 <div className="flex items-center gap-4 z-50 flex-shrink-0">
-                    {/* Desktop Auth */}
+
 
 
                     {/* Mobile Menu Toggle */}
                     <div className="md:hidden flex items-center gap-4">
-
-
                         <button onClick={toggleMenu} aria-label="Toggle Menu" className="focus:outline-none text-white p-1">
                             {isOpen ? <X size={24} /> : <Menu size={24} />}
                         </button>
@@ -90,6 +89,8 @@ export default function Navbar() {
                                     {item}
                                 </Link>
                             ))}
+
+
 
                             <div className="w-12 h-px bg-white/10 my-2" />
 

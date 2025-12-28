@@ -98,7 +98,7 @@ export default function SeoContent() {
                             The Roadmap <br /> To <span className="text-blue-500">Rank #1</span>
                         </h2>
                         <p className="text-neutral-400 mb-8 leading-relaxed">
-                            SEO isn't magic; it's engineering. We use a proven 4-step framework to analyze, optimize, and scale your search presence.
+                            SEO isn&apos;t magic; it&apos;s engineering. We use a proven 4-step framework to analyze, optimize, and scale your search presence.
                         </p>
 
                         <div className="space-y-6">
@@ -172,7 +172,7 @@ export default function SeoContent() {
                         Ready to Rank Higher?
                     </h2>
                     <p className="text-neutral-400 max-w-2xl mx-auto mb-10 relative z-10">
-                        Every day you wait is a day your competitors steal your customers. Let's build a strategy to take back your market share.
+                        Every day you wait is a day your competitors steal your customers. Let&apos;s build a strategy to take back your market share.
                     </p>
 
                     <div className="flex flex-col sm:flex-row justify-center gap-6 relative z-10">

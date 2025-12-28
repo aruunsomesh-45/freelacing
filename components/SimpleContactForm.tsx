@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -66,7 +67,7 @@ export default function SimpleContactForm() {
                     <CheckCircle className="text-green-500 w-8 h-8" />
                 </div>
                 <h3 className="text-2xl font-bold text-white">Message Sent!</h3>
-                <p className="text-neutral-400">Thanks for reaching out. I'll get back to you shortly.</p>
+                <p className="text-neutral-400">Thanks for reaching out. I&apos;ll get back to you shortly.</p>
                 <button
                     onClick={() => setIsSubmitted(false)}
                     className="text-sm text-blue-400 hover:text-blue-300 mt-4 underline"

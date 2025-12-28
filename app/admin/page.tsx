@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -41,6 +42,14 @@ type Appointment = {
     status: string;
 };
 
+type AvailabilitySetting = {
+    id: string;
+    day_of_week: number;
+    start_time: string;
+    end_time: string;
+    is_active: boolean;
+};
+
 export default function AdminDashboard() {
     const supabase = createClient();
     const [loading, setLoading] = useState(true);
@@ -48,13 +57,35 @@ export default function AdminDashboard() {
     const [projectLeads, setProjectLeads] = useState<ProjectLead[]>([]);
     const [formSubmissions, setFormSubmissions] = useState<any[]>([]);
     const [appointments, setAppointments] = useState<Appointment[]>([]);
-    const [activeTab, setActiveTab] = useState<'contact' | 'projects' | 'forms' | 'bookings'>('contact');
+    const [availability, setAvailability] = useState<AvailabilitySetting[]>([]);
+    const [activeTab, setActiveTab] = useState<'contact' | 'projects' | 'forms' | 'bookings' | 'settings'>('contact');
+    const [isSaving, setIsSaving] = useState(false);
     const router = useRouter();
 
+    const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL || "zokuai7@gmail.com";
+    const [error, setError] = useState<string | null>(null);
+
     useEffect(() => {
-        fetchData();
+        const checkAuth = async () => {
+            if (!supabase) return;
+            const { data: { user }, error } = await supabase.auth.getUser();
+
+            if (error || !user) {
+                router.push("/login"); // Redirect to login if not authenticated
+                return;
+            }
+
+            if (user.email !== ADMIN_EMAIL) {
+                router.push("/"); // Redirect non-admins to home
+                return;
+            }
+
+            fetchData();
+        };
+
+        checkAuth();
         setLoading(false);
-    }, []);
+    }, [supabase, router]); // Added dependencies
 
     const fetchData = async () => {
         if (!supabase) return;
@@ -91,8 +122,41 @@ export default function AdminDashboard() {
 
             if (!appointmentError && appointmentData) setAppointments(appointmentData);
 
-        } catch (error) {
-            console.error("Error fetching data:", error);
+            // Fetch Availability Settings
+            const { data: availabilityData, error: availabilityError } = await supabase
+                .from('availability_settings')
+                .select('*')
+                .order('day_of_week', { ascending: true });
+
+            if (!availabilityError && availabilityData) {
+                const existingDays = new Set(availabilityData.map(s => s.day_of_week));
+                const missingDays = [0, 1, 2, 3, 4, 5, 6].filter(d => !existingDays.has(d));
+
+                if (missingDays.length > 0) {
+                    const newSettings = missingDays.map(day => ({
+                        day_of_week: day,
+                        start_time: "09:00:00",
+                        end_time: "17:00:00",
+                        is_active: false
+                    }));
+                    const { data: insertedData, error: insertError } = await supabase
+                        .from('availability_settings')
+                        .insert(newSettings)
+                        .select();
+
+                    if (!insertError && insertedData) {
+                        setAvailability([...availabilityData, ...insertedData].sort((a, b) => a.day_of_week - b.day_of_week));
+                    } else {
+                        setAvailability(availabilityData);
+                    }
+                } else {
+                    setAvailability(availabilityData);
+                }
+            }
+
+        } catch (err: any) {
+            console.error("Error fetching data:", err);
+            setError(err.message || "Failed to fetch dashboard data.");
         } finally {
             setLoading(false);
         }
@@ -100,8 +164,27 @@ export default function AdminDashboard() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-black text-white flex items-center justify-center">
+            <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center gap-4">
                 <Loader2 className="animate-spin w-8 h-8 text-blue-500" />
+                <p className="text-neutral-500 font-mono text-xs animate-pulse">Initializing Dashboard...</p>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center gap-6 p-6 text-center">
+                <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center text-red-500 mb-2">
+                    <LogOut size={32} />
+                </div>
+                <h1 className="text-2xl font-bold">Access Error</h1>
+                <p className="text-neutral-400 max-w-md">{error}</p>
+                <button
+                    onClick={() => router.push("/")}
+                    className="px-6 py-2 bg-white text-black font-bold rounded-lg hover:bg-neutral-200 transition-all"
+                >
+                    Return Home
+                </button>
             </div>
         );
     }
@@ -122,6 +205,12 @@ export default function AdminDashboard() {
                     </div>
                 </div>
             </nav>
+
+            {/* Helper for day names */}
+            {(() => {
+                const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                return null;
+            })()}
 
             <div className="container mx-auto px-6 py-10">
 
@@ -158,6 +247,14 @@ export default function AdminDashboard() {
                         Bookings
                         <span className="ml-2 bg-white/10 text-white text-[10px] px-2 py-0.5 rounded-full">{appointments.length}</span>
                         {activeTab === 'bookings' && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-amber-500"></div>}
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('settings')}
+                        className={`pb-4 px-2 text-sm font-medium transition-colors relative whitespace-nowrap ${activeTab === 'settings' ? 'text-blue-400' : 'text-neutral-500 hover:text-neutral-300'}`}
+                    >
+                        Meeting Settings
+                        <span className="ml-2 bg-white/10 text-white text-[10px] px-2 py-0.5 rounded-full font-mono">CAL</span>
+                        {activeTab === 'settings' && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-400"></div>}
                     </button>
                 </div>
 
@@ -233,7 +330,7 @@ export default function AdminDashboard() {
                                                 {project.existing_url && (
                                                     <div>
                                                         <span className="text-xs text-neutral-500 uppercase tracking-wider font-bold mb-1 block">Current Site</span>
-                                                        <a href={project.existing_url} target="_blank" rel="noreferrer" className="text-blue-400 text-sm hover:underline flex items-center gap-1">
+                                                        <a href={project.existing_url} target="_blank" rel="noopener noreferrer" className="text-blue-400 text-sm hover:underline flex items-center gap-1">
                                                             {project.existing_url} <ExternalLink size={12} />
                                                         </a>
                                                     </div>
@@ -306,6 +403,7 @@ export default function AdminDashboard() {
 
                     {/* BOOKINGS TAB */}
                     {activeTab === 'bookings' && (
+                        /* existing bookings tab content */
                         <div className="grid grid-cols-1 gap-4">
                             {appointments.length === 0 ? (
                                 <div className="text-center py-20 text-neutral-500">
@@ -353,6 +451,117 @@ export default function AdminDashboard() {
                                     </div>
                                 ))
                             )}
+                        </div>
+                    )}
+
+                    {/* SETTINGS TAB */}
+                    {activeTab === 'settings' && (
+                        <div className="bg-neutral-900/50 border border-white/5 p-8 rounded-2xl">
+                            <div className="flex items-center justify-between mb-8">
+                                <div>
+                                    <h3 className="text-2xl font-bold text-white mb-2">Availability Settings</h3>
+                                    <p className="text-neutral-400 text-sm">Configure your weekly working hours and booking availability.</p>
+                                </div>
+                                <button
+                                    onClick={async () => {
+                                        if (!supabase) {
+                                            alert("Supabase client not initialized. Check your environment variables.");
+                                            return;
+                                        }
+                                        setIsSaving(true);
+                                        const { error } = await supabase.from('availability_settings').upsert(availability);
+                                        if (error) alert(error.message);
+                                        else alert("Settings saved successfully!");
+                                        setIsSaving(false);
+                                    }}
+                                    disabled={isSaving}
+                                    className="px-6 py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition-all flex items-center gap-2"
+                                >
+                                    {isSaving ? <Loader2 className="animate-spin w-4 h-4" /> : "Save Changes"}
+                                </button>
+                            </div>
+
+                            <div className="space-y-4">
+                                {["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"].map((day, index) => {
+                                    const setting = availability.find(s => s.day_of_week === index) || {
+                                        id: `temp-${index}`,
+                                        day_of_week: index,
+                                        start_time: "09:00:00",
+                                        end_time: "17:00:00",
+                                        is_active: false
+                                    };
+
+                                    return (
+                                        <div key={index} className="flex items-center gap-6 p-4 bg-black/30 border border-white/5 rounded-xl">
+                                            <div className="w-32">
+                                                <h4 className="font-bold text-white">{day}</h4>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={setting.is_active}
+                                                    onChange={(e) => {
+                                                        const newAvailability = [...availability];
+                                                        const idx = newAvailability.findIndex(s => s.day_of_week === index);
+                                                        if (idx >= 0) {
+                                                            newAvailability[idx] = { ...newAvailability[idx], is_active: e.target.checked };
+                                                        }
+                                                        setAvailability(newAvailability);
+                                                    }}
+                                                    className="w-4 h-4 rounded border-white/10 bg-black text-blue-600 focus:ring-blue-500"
+                                                />
+                                                <span className="text-xs text-neutral-500 uppercase font-bold tabular-nums">
+                                                    {setting.is_active ? "Active" : "Away"}
+                                                </span>
+                                            </div>
+
+                                            <div className={`flex items-center gap-4 transition-opacity ${setting.is_active ? 'opacity-100' : 'opacity-30 pointer-events-none'}`}>
+                                                <input
+                                                    type="time"
+                                                    value={setting.start_time.slice(0, 5)}
+                                                    onChange={(e) => {
+                                                        const newAvailability = [...availability];
+                                                        const idx = newAvailability.findIndex(s => s.day_of_week === index);
+                                                        if (idx >= 0) {
+                                                            newAvailability[idx] = { ...newAvailability[idx], start_time: e.target.value + ":00" };
+                                                        }
+                                                        setAvailability(newAvailability);
+                                                    }}
+                                                    className="bg-neutral-800 border border-white/10 rounded px-2 py-1 text-sm text-white outline-none focus:border-blue-500"
+                                                />
+                                                <span className="text-neutral-600">—</span>
+                                                <input
+                                                    type="time"
+                                                    value={setting.end_time.slice(0, 5)}
+                                                    onChange={(e) => {
+                                                        const newAvailability = [...availability];
+                                                        const idx = newAvailability.findIndex(s => s.day_of_week === index);
+                                                        if (idx >= 0) {
+                                                            newAvailability[idx] = { ...newAvailability[idx], end_time: e.target.value + ":00" };
+                                                        }
+                                                        setAvailability(newAvailability);
+                                                    }}
+                                                    className="bg-neutral-800 border border-white/10 rounded px-2 py-1 text-sm text-white outline-none focus:border-blue-500"
+                                                />
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+
+                            <div className="mt-12 pt-8 border-t border-white/5">
+                                <h4 className="text-lg font-bold text-white mb-4">Integrations</h4>
+                                <div className="p-4 bg-blue-600/10 border border-blue-500/20 rounded-xl flex items-center justify-between">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center font-bold text-blue-400">CAL</div>
+                                        <div>
+                                            <p className="font-bold text-white">Cal.com Widget</p>
+                                            <p className="text-xs text-neutral-400">Current Link: https://cal.com/zoku-ai-skq2uy/30min</p>
+                                        </div>
+                                    </div>
+                                    <button className="px-4 py-1.5 bg-white/5 hover:bg-white/10 rounded-lg text-xs font-bold transition-all">Configure</button>
+                                </div>
+                            </div>
                         </div>
                     )}
 

@@ -4,24 +4,24 @@ import React from "react";
 import { motion } from "framer-motion";
 import { CheckCircle2, ArrowRight, Brain, Zap, Search, Activity, BarChart3, TrendingUp, Users, RefreshCw } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
+import ResponsiveVideo from "@/components/ui/ResponsiveVideo";
+
 export default function FeaturesPage() {
     return (
         <main className="bg-black min-h-screen text-white selection:bg-blue-500 selection:text-white">
 
             {/* HERRO SECTION */}
             <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-                {/* Background Video */}
+                {/* Background Video - Optimized */}
                 <div className="absolute inset-0 z-0">
-                    <video
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="w-full h-full object-cover opacity-40 mix-blend-screen"
-                    >
-                        <source src="/hero-flow.mp4" type="video/mp4" />
-                    </video>
+                    <ResponsiveVideo
+                        src="/features-hero-bg.mp4"
+                        poster="/hero-poster.png"
+                        className="w-full h-full opacity-50 mix-blend-screen"
+                        loadDelay={300}
+                    />
                 </div>
 
                 <div className="absolute inset-0 bg-black/60 z-0"></div>
@@ -323,10 +323,12 @@ export default function FeaturesPage() {
                                 <div className="relative h-full flex flex-col bg-neutral-900/90 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden">
                                     <div className="h-48 overflow-hidden relative">
                                         <div className="absolute inset-0 bg-green-900/20 group-hover:bg-transparent transition-colors z-10"></div>
-                                        <img
+                                        <Image
                                             src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop"
                                             alt="SaaS Case Study"
-                                            className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                                            fill
+                                            sizes="(max-width: 768px) 100vw, 33vw"
+                                            className="object-cover transform group-hover:scale-110 transition-transform duration-700"
                                         />
                                     </div>
                                     <div className="p-8 flex flex-col flex-grow">
@@ -359,10 +361,12 @@ export default function FeaturesPage() {
 
                                     <div className="h-48 overflow-hidden relative">
                                         <div className="absolute inset-0 bg-blue-900/20 group-hover:bg-transparent transition-colors z-10"></div>
-                                        <img
+                                        <Image
                                             src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"
                                             alt="FinTech Case Study"
-                                            className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                                            fill
+                                            sizes="(max-width: 768px) 100vw, 33vw"
+                                            className="object-cover transform group-hover:scale-110 transition-transform duration-700"
                                         />
                                     </div>
                                     <div className="p-8 flex flex-col flex-grow">
@@ -394,10 +398,12 @@ export default function FeaturesPage() {
                                 <div className="relative h-full flex flex-col bg-neutral-900/90 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden">
                                     <div className="h-48 overflow-hidden relative">
                                         <div className="absolute inset-0 bg-purple-900/20 group-hover:bg-transparent transition-colors z-10"></div>
-                                        <img
+                                        <Image
                                             src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop"
                                             alt="E-Commerce Case Study"
-                                            className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                                            fill
+                                            sizes="(max-width: 768px) 100vw, 33vw"
+                                            className="object-cover transform group-hover:scale-110 transition-transform duration-700"
                                         />
                                     </div>
                                     <div className="p-8 flex flex-col flex-grow">

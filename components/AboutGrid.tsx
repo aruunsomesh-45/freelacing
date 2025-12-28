@@ -119,7 +119,7 @@ export function AboutGrid() {
                                             height: {
                                                 repeat: i % 2 !== 0 ? Infinity : 0,
                                                 repeatType: "reverse",
-                                                duration: 2 + Math.random(),
+                                                duration: 2 + ((i * 0.5) % 1),
                                                 delay: 1 + i * 0.1
                                             }
                                         }}

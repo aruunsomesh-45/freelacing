@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "responsive-website-demo/**",
+    "supabase_*.sql",
+    "lint_output.txt",
+    "andrea/**",
+    "check_env.js",
   ]),
 ]);
 

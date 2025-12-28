@@ -10,7 +10,7 @@ const projects = [
         desc: "Built a clean and responsive business landing page using React + Tailwind.",
         tools: ["React", "Tailwind", "GSAP"],
         color: "from-blue-500 to-cyan-500",
-        link: "https://fitness-studio-nine.vercel.app",
+        link: "https://optimistic-site-062151.framer.app/",
         github: "#"
     },
     {
@@ -18,15 +18,15 @@ const projects = [
         desc: "A comprehensive dashboard for managing sales, inventory, and analytics.",
         tools: ["Next.js", "Recharts", "Framer Motion"],
         color: "from-purple-500 to-pink-500",
-        link: "#",
+        link: "https://zokuperfumes.netlify.app/",
         github: "#"
     },
     {
-        title: "Creative Portfolio Template",
-        desc: "A minimal and grid-based portfolio template for photographers.",
-        tools: ["HTML/CSS", "JavaScript", "Locomotive Scroll"],
+        title: "Fitness Studio Website",
+        desc: "A modern, high-energy website for a fitness studio with class scheduling and membership details.",
+        tools: ["React", "Tailwind", "Framer Motion"],
         color: "from-orange-400 to-red-500",
-        link: "#",
+        link: "https://fitness-studio-nine.vercel.app/",
         github: "#"
     }
 ];

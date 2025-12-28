@@ -240,7 +240,7 @@ export default function GrowthEnginePage() {
 
                     <div className="max-w-3xl mx-auto text-center mt-20">
                         <p className="text-2xl font-light italic text-neutral-300 mb-8">
-                            "Traditional marketing guesses. Predictive analytics <span className="text-white font-semibold not-italic">anticipates and acts</span>. Growth stops being a gamble — it becomes a system."
+                            &quot;Traditional marketing guesses. Predictive analytics <span className="text-white font-semibold not-italic">anticipates and acts</span>. Growth stops being a gamble — it becomes a system.&quot;
                         </p>
                     </div>
 

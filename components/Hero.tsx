@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, MoveDown } from "lucide-react";
 import Link from "next/link";
+import ResponsiveVideo from "@/components/ui/ResponsiveVideo";
 
 
 
@@ -122,14 +123,11 @@ export default function Hero() {
         >
             {/* BACKGROUND LAYER (Speed 0.1 equivalent) */}
             <div ref={bgRef} className="absolute inset-0 w-full h-[120%] -top-[10%] z-0 will-change-transform">
-                <video
-                    src="/hero-main.mp4"
+                <ResponsiveVideo
+                    src="/hero-bg.mp4"
                     poster="/hero-poster.png"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-full object-cover opacity-60"
+                    className="w-full h-full opacity-60"
+                    loadDelay={300}
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black" />
             </div>

@@ -58,8 +58,8 @@ export default function About() {
                                     inactiveZone={0.01}
                                 />
                                 <div className="relative p-4 bg-neutral-900 rounded-xl border border-neutral-800">
-                                    <h4 className="text-3xl font-bold text-blue-500 font-heading">3+</h4>
-                                    <p className="text-neutral-400 font-medium">Years Experience</p>
+                                    <h4 className="text-3xl font-bold text-blue-500 font-heading">Focused</h4>
+                                    <p className="text-neutral-400 font-medium">Expert Delivery</p>
                                 </div>
                             </div>
                             <div className="relative rounded-xl p-[1px] overflow-hidden group">

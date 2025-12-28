@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, CheckCircle, ArrowRight, Loader2 } from "lucide-react";
+import { Send, CheckCircle, ArrowRight, Loader2, Calendar as CalendarIcon, Paperclip, X, FileText, UploadCloud, Trash2 } from "lucide-react";
 import { AIChatWindow } from "@/components/ui/ai-chat-window";
 import { createClient } from "@/utils/supabase/client";
 
@@ -60,6 +61,36 @@ const TIMELINES = ["ASAP", "1–2 weeks", "3–4 weeks", "1–2 months", "Flexib
 export default function StartProjectForm() {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [files, setFiles] = useState<File[]>([]);
+    const [uploadError, setUploadError] = useState<string | null>(null);
+
+    const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFiles = Array.from(e.target.files || []);
+        setUploadError(null);
+
+        // Validation Constraints
+        const MAX_SIZE = 50 * 1024 * 1024; // 50MB
+        const MAX_FILES = 5;
+
+        // Check file count
+        if (files.length + selectedFiles.length > MAX_FILES) {
+            setUploadError(`You can only upload up to ${MAX_FILES} files.`);
+            return;
+        }
+
+        // Check file sizes
+        const invalidFiles = selectedFiles.filter(file => file.size > MAX_SIZE);
+        if (invalidFiles.length > 0) {
+            setUploadError(`One or more files exceed the 50MB limit: ${invalidFiles.map(f => f.name).join(", ")}`);
+            return;
+        }
+
+        setFiles(prev => [...prev, ...selectedFiles]);
+    };
+
+    const removeFile = (index: number) => {
+        setFiles(prev => prev.filter((_, i) => i !== index));
+    };
 
 
     const {
@@ -67,6 +98,7 @@ export default function StartProjectForm() {
         handleSubmit,
         formState: { errors },
         watch,
+        setValue,
     } = useForm<FormData>();
 
     // Watch features to handle checkbox styling if needed, though mostly handled by CSS
@@ -127,8 +159,42 @@ export default function StartProjectForm() {
                 budget: budgetMap[data.budget] || 'unknown',
                 timeline: timelineMap[data.timeline] || 'flexible',
                 existing_url: data.existingUrl || null,
-                status: 'new'
+                status: 'new',
+                attachments: [] as any[]
             };
+
+            // 1. Upload Files to Storage
+            if (files.length > 0) {
+                const uploadedAttachments = [];
+
+                for (const file of files) {
+                    const fileExt = file.name.split('.').pop();
+                    const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
+                    const filePath = `${fileName}`;
+
+                    const { error: uploadError } = await supabase.storage
+                        .from('project-files')
+                        .upload(filePath, file);
+
+                    if (uploadError) {
+                        console.error("Upload error:", uploadError);
+                        // Continue uploading others or throw? Let's throw to be safe
+                        throw new Error(`Failed to upload ${file.name}: ${uploadError.message}`);
+                    }
+
+                    const { data: publicUrlData } = supabase.storage
+                        .from('project-files')
+                        .getPublicUrl(filePath);
+
+                    uploadedAttachments.push({
+                        name: file.name,
+                        size: file.size,
+                        type: file.type,
+                        url: publicUrlData.publicUrl
+                    });
+                }
+                submissionData.attachments = uploadedAttachments;
+            }
 
             const { error } = await supabase
                 .from('project_leads')
@@ -159,9 +225,9 @@ export default function StartProjectForm() {
                     <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
                         <CheckCircle className="w-10 h-10 text-green-500" />
                     </div>
-                    <h2 className="text-3xl font-bold font-michroma mb-4">Booking Confirmed!</h2>
+                    <h2 className="text-3xl font-bold font-michroma mb-4">Inquiry Received!</h2>
                     <p className="text-neutral-400 text-lg mb-8">
-                        Thank you for contacting us by Andrea Agency. The meeting link will be sent to your email, please check your email.
+                        Thank you for your interest in working with Andrea. We have received your project details and will get back to you within 24 hours.
                     </p>
                     <div className="flex flex-col md:flex-row items-center justify-center gap-4">
                         <a
@@ -285,8 +351,7 @@ export default function StartProjectForm() {
                     <div className="animate-in fade-in zoom-in duration-300">
                         <AIChatWindow
                             onComplete={(summary) => {
-                                // In a real app, we might continually update the hidden field or state as the conversation progresses
-                                // For now, we are capturing the summary or last intent
+                                setValue("description", summary);
                             }}
                         />
                         {/* We still register the field so react-hook-form handles submission, 
@@ -295,7 +360,6 @@ export default function StartProjectForm() {
                         <input
                             type="hidden"
                             {...register("description")}
-                            value="Discussion handled via AI Assistant"
                         />
                     </div>
                 </div>
@@ -389,10 +453,86 @@ export default function StartProjectForm() {
                         placeholder="https://example.com"
                     />
                 </div>
+
+            </motion.div>
+
+            {/* SECTION 5: ATTACHMENTS */}
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="space-y-6"
+            >
+                <h3 className="text-xl font-michroma text-white border-b border-white/10 pb-4">
+                    05. Attachments
+                </h3>
+
+                <div className="space-y-4">
+                    <label className="text-sm text-neutral-400">
+                        Upload Project Files (Optional)
+                        <span className="block text-xs text-neutral-500 font-normal mt-1">
+                            Max 50MB per file. Up to 5 files.
+                        </span>
+                    </label>
+
+                    <div className="border-2 border-dashed border-neutral-800 hover:border-blue-500/50 rounded-xl p-8 transition-colors bg-neutral-900/50 text-center">
+                        <input
+                            type="file"
+                            multiple
+                            onChange={handleFileSelect}
+                            className="hidden"
+                            id="file-upload"
+                        />
+                        <label htmlFor="file-upload" className="cursor-pointer flex flex-col items-center justify-center gap-3">
+                            <div className="w-12 h-12 rounded-full bg-neutral-800 flex items-center justify-center text-blue-400">
+                                <UploadCloud className="w-6 h-6" />
+                            </div>
+                            <span className="text-neutral-300 font-medium">Click to upload or drag and drop</span>
+                            <span className="text-xs text-neutral-500">Documents, Images, Wireframes</span>
+                        </label>
+                    </div>
+
+                    {uploadError && (
+                        <p className="text-red-500 text-xs px-2">{uploadError}</p>
+                    )}
+
+                    <AnimatePresence>
+                        {files.length > 0 && (
+                            <div className="grid grid-cols-1 gap-2">
+                                {files.map((file, index) => (
+                                    <motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: "auto" }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        className="flex items-center justify-between p-3 bg-neutral-800/50 rounded-lg border border-neutral-800"
+                                    >
+                                        <div className="flex items-center gap-3 overflow-hidden">
+                                            <div className="w-8 h-8 rounded bg-blue-500/10 flex items-center justify-center text-blue-400 flex-shrink-0">
+                                                <FileText className="w-4 h-4" />
+                                            </div>
+                                            <div className="flex flex-col min-w-0">
+                                                <span className="text-sm text-neutral-200 truncate">{file.name}</span>
+                                                <span className="text-xs text-neutral-500">{(file.size / 1024 / 1024).toFixed(2)} MB</span>
+                                            </div>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            onClick={() => removeFile(index)}
+                                            className="p-2 hover:bg-red-500/10 text-neutral-500 hover:text-red-500 rounded-lg transition-colors"
+                                        >
+                                            <Trash2 className="w-4 h-4" />
+                                        </button>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        )}
+                    </AnimatePresence>
+                </div>
             </motion.div>
 
             {/* SUBMIT */}
-            <div className="pt-8">
+            <div className="pt-8 flex flex-col md:flex-row items-center gap-4">
                 <button
                     type="submit"
                     disabled={isSubmitting}
@@ -410,16 +550,27 @@ export default function StartProjectForm() {
                         </>
                     )}
                 </button>
-                <p className="text-center md:text-left text-xs text-neutral-500 mt-4">
-                    By submitting this form, you agree to the storing and processing of your data by Andrea Agency.
-                </p>
-                {errorMsg && (
+
+                <a
+                    href="https://cal.com/zoku-ai-skq2uy/30min"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full md:w-auto px-10 py-4 bg-blue-600/10 border border-blue-500/30 text-blue-400 font-bold text-lg rounded-full hover:bg-blue-600 hover:text-white transition-all flex items-center justify-center gap-2 font-michroma group"
+                >
+                    <CalendarIcon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                    Schedule Meeting
+                </a>
+            </div>
+            <p className="text-center md:text-left text-xs text-neutral-500 mt-4">
+                By submitting this form, you agree to the storing and processing of your data by Andrea Agency.
+            </p>
+            {
+                errorMsg && (
                     <div className="mt-4 p-4 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl text-sm text-center">
                         {errorMsg}
                     </div>
-                )}
-            </div>
-
-        </form>
+                )
+            }
+        </form >
     );
 }

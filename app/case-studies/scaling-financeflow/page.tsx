@@ -170,7 +170,7 @@ export default function ScalingFinanceFlowPage() {
                                 <li className="flex gap-2"><span>•</span> Financial insights</li>
                             </ul>
                             <div className="pt-4 border-t border-white/5 text-purple-400 text-sm font-semibold">
-                                ✅ Feels "built for me"
+                                ✅ Feels &quot;built for me&quot;
                             </div>
                         </div>
 
@@ -240,7 +240,7 @@ export default function ScalingFinanceFlowPage() {
 
                     <div className="max-w-3xl mx-auto text-center mt-20">
                         <p className="text-2xl font-light italic text-neutral-300 mb-8">
-                            "Traditional UX redesigns are static and reactive. AI-driven UX is <span className="text-white font-semibold not-italic">continuous, adaptive, and predictive</span>. FinanceFlow didn’t just scale users — it scaled experience quality."
+                            &quot;Traditional UX redesigns are static and reactive. AI-driven UX is <span className="text-white font-semibold not-italic">continuous, adaptive, and predictive</span>. FinanceFlow didn’t just scale users — it scaled experience quality.&quot;
                         </p>
                     </div>
 

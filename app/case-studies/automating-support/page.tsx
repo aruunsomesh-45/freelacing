@@ -240,7 +240,7 @@ export default function AutomatingSupportCaseStudy() {
 
                     <div className="max-w-3xl mx-auto text-center mt-20">
                         <p className="text-2xl font-light italic text-neutral-300 mb-8">
-                            "Traditional support reacts. AI support <span className="text-white font-semibold not-italic">predicts, personalizes, and converts</span>. We don’t replace humans — we amplify them by removing noise and unlocking focus on revenue."
+                            &quot;Traditional support reacts. AI support <span className="text-white font-semibold not-italic">predicts, personalizes, and converts</span>. We don’t replace humans — we amplify them by removing noise and unlocking focus on revenue.&quot;
                         </p>
                     </div>
 

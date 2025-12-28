@@ -48,7 +48,7 @@ const VideoCard = ({ src, isExpanded, isInView }: { src: string; isExpanded: boo
             muted={true} // Start muted
             loop
             playsInline
-            preload="auto"
+            preload="metadata"
         />
     );
 };
@@ -59,6 +59,9 @@ const ExpandOnHover = () => {
     const sectionRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
+        const section = sectionRef.current; // Copy ref to local variable
+        if (!section) return;
+
         const observer = new IntersectionObserver(
             ([entry]) => {
                 // Consider "in view" when at least 40% of the section is visible
@@ -67,14 +70,10 @@ const ExpandOnHover = () => {
             { threshold: 0.4 }
         );
 
-        if (sectionRef.current) {
-            observer.observe(sectionRef.current);
-        }
+        observer.observe(section);
 
         return () => {
-            if (sectionRef.current) {
-                observer.unobserve(sectionRef.current);
-            }
+            observer.unobserve(section);
         };
     }, []);
 

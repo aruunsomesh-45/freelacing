@@ -8,6 +8,7 @@ import {
     Search, Users, Layers, Cpu
 } from "lucide-react";
 import Link from "next/link";
+import ResponsiveVideo from "@/components/ui/ResponsiveVideo";
 
 export default function ServicesPage() {
     return (
@@ -16,15 +17,12 @@ export default function ServicesPage() {
             {/* HERO SECTION */}
             <section className="relative py-24 md:py-32 overflow-hidden">
                 <div className="absolute inset-0 z-0 select-none pointer-events-none">
-                    <video
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="w-full h-full object-cover"
-                    >
-                        <source src="/videos/services-hero-bg.mp4" type="video/mp4" />
-                    </video>
+                    <ResponsiveVideo
+                        src="/videos/services-hero-bg.mp4"
+                        poster="/hero-poster.png"
+                        className="w-full h-full"
+                        loadDelay={300}
+                    />
                 </div>
                 {/* Fallback/Overlay to ensure text readability */}
                 <div className="absolute inset-0 bg-black/60 z-0 pointer-events-none"></div>
@@ -57,7 +55,7 @@ export default function ServicesPage() {
                             </div>
                             <h3 className="text-xl font-bold text-white">Emotional Connection</h3>
                             <p className="text-neutral-400 leading-relaxed">
-                                "This person understands my problem." <br />
+                                &quot;This person understands my problem.&quot; <br />
                                 We design for feeling, not just function.
                             </p>
                         </div>
@@ -67,7 +65,7 @@ export default function ServicesPage() {
                             </div>
                             <h3 className="text-xl font-bold text-white">Cognitive Clarity</h3>
                             <p className="text-neutral-400 leading-relaxed">
-                                "I understand what I get." <br />
+                                &quot;I understand what I get.&quot; <br />
                                 Zero confusion. Instant value communication.
                             </p>
                         </div>
@@ -77,7 +75,7 @@ export default function ServicesPage() {
                             </div>
                             <h3 className="text-xl font-bold text-white">Trust Acceleration</h3>
                             <p className="text-neutral-400 leading-relaxed">
-                                "This feels structured and safe." <br />
+                                &quot;This feels structured and safe.&quot; <br />
                                 Professionalism baked into every pixel.
                             </p>
                         </div>

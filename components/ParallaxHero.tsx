@@ -4,7 +4,8 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import gsap from "gsap";
-import { Brain, Zap, Code, Rocket, Palette, Monitor, Smartphone, RefreshCw } from "lucide-react";
+import { Brain, Zap, Code, Rocket, Palette, Monitor, Smartphone, RefreshCw, Calendar } from "lucide-react";
+import ResponsiveVideo from "@/components/ui/ResponsiveVideo";
 
 /**
  * ParallaxHero Component
@@ -98,7 +99,7 @@ export default function ParallaxHero() {
               data-speed="0.5": Moves at half scroll speed, creating depth behind static content.
             */}
             <div
-                className="absolute inset-0 w-full h-[130%] -top-[15%] z-0 will-change-transform"
+                className="absolute inset-0 w-full h-[130%] -top-[15%] z-0 will-change-transform hero-visual-scale"
                 data-speed="0.4"
             >
                 <div className="relative w-full h-full">
@@ -106,15 +107,12 @@ export default function ParallaxHero() {
                     <div className="absolute inset-0 bg-black/40 z-10" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60 z-10" />
 
-                    {/* Replace with your video or image */}
-                    <video
-                        className="w-full h-full object-cover"
-                        src="/hero-main.mp4"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
+                    {/* Optimized background video - disabled on mobile, lazy loaded */}
+                    <ResponsiveVideo
+                        src="/hero-bg.mp4"
                         poster="/hero-poster.png"
+                        className="w-full h-full"
+                        loadDelay={300}
                     />
                 </div>
             </div>
@@ -125,13 +123,13 @@ export default function ParallaxHero() {
             */}
             {/* Element 1: Slow floater (Background shape) */}
             <div
-                className="absolute top-[20%] left-[10%] w-64 h-64 bg-purple-600/20 rounded-full blur-[100px] z-10 will-change-transform mix-blend-screen"
+                className="absolute top-[20%] left-[10%] w-64 h-64 bg-blue-600/5 rounded-full blur-[120px] z-10 will-change-transform mix-blend-screen"
                 data-speed="0.2"
             />
 
             {/* Element 2: Faster floater (Foreground accent) */}
             <div
-                className="absolute bottom-[30%] right-[15%] w-32 h-32 md:w-48 md:h-48 bg-amber-500/10 rounded-full blur-[80px] z-20 will-change-transform mix-blend-screen overflow-visible"
+                className="absolute bottom-[30%] right-[15%] w-32 h-32 md:w-48 md:h-48 bg-blue-500/5 rounded-full blur-[100px] z-20 will-change-transform mix-blend-screen overflow-visible"
                 data-speed="0.6"
             />
 
@@ -182,13 +180,21 @@ export default function ParallaxHero() {
                     {/* CTA Button */}
                     <div className="hero-fade-in pt-2 w-full">
                         <div className="flex flex-col md:flex-row gap-4 justify-center items-center w-full">
-                            <Link href="/start-project">
-                                <button className="h-12 px-8 bg-white/90 backdrop-blur-md border border-white/20 text-black font-bold uppercase tracking-wider text-xs hover:bg-white transition-all rounded-full font-sans flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)]">
+                            <Link href="/start-project" className="w-full md:w-60">
+                                <button className="w-full h-12 px-8 bg-white/90 backdrop-blur-md border border-white/20 text-black font-bold uppercase tracking-wider text-xs hover:bg-white transition-all rounded-full font-sans flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)]">
                                     Start a Project
                                 </button>
                             </Link>
-                            <Link href="/projects">
-                                <button className="h-12 px-8 bg-white/5 backdrop-blur-md border border-white/10 text-white font-bold uppercase tracking-wider text-xs hover:bg-white/20 hover:border-white/30 transition-all rounded-full font-sans flex items-center justify-center shadow-lg">
+                            <a
+                                href="https://cal.com/zoku-ai-skq2uy/30min"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full md:w-60 h-12 px-8 bg-black/40 backdrop-blur-md border border-white/10 text-neutral-400 font-bold uppercase tracking-wider text-xs hover:bg-white hover:text-black transition-all rounded-full font-sans flex items-center justify-center gap-2"
+                            >
+                                <Calendar size={14} /> Schedule Meeting
+                            </a>
+                            <Link href="/projects" className="w-full md:w-60">
+                                <button className="w-full h-12 px-8 bg-white/5 backdrop-blur-md border border-white/10 text-white font-bold uppercase tracking-wider text-xs hover:bg-white/20 hover:border-white/30 transition-all rounded-full font-sans flex items-center justify-center shadow-lg">
                                     View Work
                                 </button>
                             </Link>

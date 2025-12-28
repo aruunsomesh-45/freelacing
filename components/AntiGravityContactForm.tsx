@@ -62,7 +62,7 @@ export default function AntiGravityContactForm() {
                     {state.success ? (
                         <div className="text-center py-12">
                             <h4 className="text-2xl font-bold text-white mb-2">Signal Received!</h4>
-                            <p className="text-white/60">We'll respond on your frequency shortly.</p>
+                            <p className="text-white/60">We&apos;ll respond on your frequency shortly.</p>
                         </div>
                     ) : (
                         <form action={formAction} className="space-y-6">

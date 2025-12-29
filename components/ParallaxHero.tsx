@@ -113,6 +113,7 @@ export default function ParallaxHero() {
                         poster="/hero-poster.png"
                         className="w-full h-full"
                         loadDelay={300}
+                        mobileBreakpoint={0}
                     />
                 </div>
             </div>

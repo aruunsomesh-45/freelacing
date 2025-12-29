@@ -128,6 +128,7 @@ export default function Hero() {
                     poster="/hero-poster.png"
                     className="w-full h-full opacity-60"
                     loadDelay={300}
+                    mobileBreakpoint={0}
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black" />
             </div>

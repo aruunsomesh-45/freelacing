@@ -35,7 +35,7 @@ export async function POST(req: Request) {
     } catch (error) {
         console.error('Error creating Retell web call:', error);
         return NextResponse.json(
-            { error: 'Failed to initiate call' },
+            { error: error instanceof Error ? error.message : 'Failed to initiate call' },
             { status: 500 }
         );
     }

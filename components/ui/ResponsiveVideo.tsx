@@ -116,8 +116,8 @@ export default function ResponsiveVideo({
                     }`}
             />
 
-            {/* Video - Only loaded on desktop after delay */}
-            {!isMobile && shouldLoadVideo && !hasError && (
+            {/* Video - Rendered if not mobile OR if mobile limit disabled (mobileBreakpoint=0) */}
+            {(!isMobile || mobileBreakpoint === 0) && shouldLoadVideo && !hasError && (
                 <video
                     ref={videoRef}
                     className="absolute inset-0 w-full h-full object-cover"
@@ -126,7 +126,7 @@ export default function ResponsiveVideo({
                     muted
                     loop
                     playsInline
-                    preload="metadata"
+                    preload="auto"
                     poster={poster}
                 />
             )}

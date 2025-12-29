@@ -179,7 +179,7 @@ export default function ParallaxHero() {
 
                     {/* CTA Button */}
                     {/* CTA Button */}
-                    <div className="hero-fade-in pt-2 w-full">
+                    <div className="hero-fade-in pt-2 w-full relative z-50 pointer-events-auto">
                         <div className="flex flex-col md:flex-row gap-4 justify-center items-center w-full">
                             <Link href="/start-project" className="w-full md:w-60">
                                 <button className="w-full h-12 px-8 bg-white/90 backdrop-blur-md border border-white/20 text-black font-bold uppercase tracking-wider text-xs hover:bg-white transition-all rounded-full font-sans flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)]">

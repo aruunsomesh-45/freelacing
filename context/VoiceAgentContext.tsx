@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useRef, useEffect, ReactNode } from "react";
-import { RetellWebClient } from "retell-client-js-sdk";
+import type { RetellWebClient } from "retell-client-js-sdk";
 
 interface VoiceAgentContextType {
     isConnecting: boolean;
@@ -19,30 +19,58 @@ export function VoiceAgentProvider({ children }: { children: ReactNode }) {
     const [error, setError] = useState<string | null>(null);
     const retellClientRef = useRef<RetellWebClient | null>(null);
 
-    // Initialize client on mount
+    // Initialize client on mount (Client-side only)
     useEffect(() => {
-        if (typeof window !== "undefined" && !retellClientRef.current) {
-            retellClientRef.current = new RetellWebClient();
+        if (typeof window === "undefined") return;
 
-            retellClientRef.current.on("call_started", () => {
-                console.log("Retell: Call started");
-                setIsConnecting(false);
-                setIsConnected(true);
-            });
+        let isMounted = true;
 
-            retellClientRef.current.on("call_ended", () => {
-                console.log("Retell: Call ended");
-                setIsConnected(false);
-                setIsConnecting(false);
-            });
+        const initRetell = async () => {
+            try {
+                const { RetellWebClient } = await import("retell-client-js-sdk");
+                if (!isMounted) return;
 
-            retellClientRef.current.on("error", (err) => {
-                console.error("Retell: Error", err);
-                setError("Connection failed");
-                setIsConnected(false);
-                setIsConnecting(false);
-            });
+                const client = new RetellWebClient();
+                retellClientRef.current = client;
+
+                client.on("call_started", () => {
+                    console.log("Retell: Call started");
+                    setIsConnecting(false);
+                    setIsConnected(true);
+                });
+
+                client.on("call_ended", () => {
+                    console.log("Retell: Call ended");
+                    setIsConnected(false);
+                    setIsConnecting(false);
+                });
+
+                client.on("error", (err) => {
+                    console.error("Retell: Error", err);
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    const errorMessage = (err as any)?.message || String(err);
+
+                    if (errorMessage.includes("Permission dismissed") || errorMessage.includes("not allowed")) {
+                        setError("Microphone access denied. Please allow microphone permissions in your browser settings to talk to the agent.");
+                    } else {
+                        setError(errorMessage || "Connection failed");
+                    }
+
+                    setIsConnected(false);
+                    setIsConnecting(false);
+                });
+            } catch (err) {
+                console.error("Failed to load Retell SDK", err);
+            }
+        };
+
+        if (!retellClientRef.current) {
+            initRetell();
         }
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     const startCall = async () => {
@@ -72,7 +100,10 @@ export function VoiceAgentProvider({ children }: { children: ReactNode }) {
                 body: JSON.stringify({ agent_id: agentId }),
             });
 
-            if (!response.ok) throw new Error(`Server error: ${response.status}`);
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error || `Server error: ${response.status}`);
+            }
 
             const data = await response.json();
             if (!data.access_token) throw new Error("No access token returned");

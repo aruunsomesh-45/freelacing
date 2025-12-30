@@ -48,11 +48,11 @@ const FEATURES = [
 ];
 
 const BUDGET_RANGES = [
-    "Less than $300",
-    "$300 – $600",
-    "$600 – $1,000",
-    "$1,000 – $3,000",
-    "$3,000+",
+    "Less than ₹5,000",
+    "₹5,000 – ₹10,000",
+    "₹10,000 – ₹20,000",
+    "₹20,000 – ₹30,000",
+    "₹30,000+",
     "Not sure yet",
 ];
 
@@ -131,11 +131,11 @@ export default function StartProjectForm() {
 
             // Map Budget to Enum
             const budgetMap: Record<string, string> = {
-                "Less than $300": "less_300",
-                "$300 – $600": "300_600",
-                "$600 – $1,000": "600_1000",
-                "$1,000 – $3,000": "1000_3000",
-                "$3,000+": "plus_3000",
+                "Less than ₹5,000": "less_5k",
+                "₹5,000 – ₹10,000": "5k_10k",
+                "₹10,000 – ₹20,000": "10k_20k",
+                "₹20,000 – ₹30,000": "20k_30k",
+                "₹30,000+": "plus_30k",
                 "Not sure yet": "unknown"
             };
 

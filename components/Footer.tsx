@@ -47,7 +47,7 @@ export default function Footer() {
                         <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">Get in Touch</h4>
                         <ul className="space-y-3 mb-6">
                             <li className="text-neutral-400">zokuai7@gmail.com</li>
-                            <li className="text-neutral-400">+1 (234) 567-890</li>
+                            <li className="text-neutral-400">+34 602 25 62 48</li>
                         </ul>
                         <div className="flex gap-4">
                             <a href="https://www.linkedin.com/in/arun-s-163578390" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-neutral-400 hover:bg-blue-600 hover:text-white transition-all cursor-pointer">

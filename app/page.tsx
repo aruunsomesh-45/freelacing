@@ -13,7 +13,7 @@ export default function Home() {
       <ExpandOnHover />
       <About />
 
-      <Contact />
+      <Contact showPricing={false} />
     </div>
   );
 }

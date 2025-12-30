@@ -31,70 +31,70 @@ interface ServiceItem {
 
 const services: ServiceItem[] = [
     {
-        icon: Monitor,
-        title: "Web Development",
-        whatItIs: "We build high-performance websites that don’t just look good—they act as your best 24/7 salesperson. From fast-loading landing pages to scalable web apps, we ensure your tech stack drives growth.",
-        howItHelps: [
-            "Blazing fast 95+ PageSpeed",
-            "SEO-ready architecture",
-            "Secure & scalable code",
-        ],
-        bestFor: "Get a Custom Build"
-    },
-    {
         icon: Palette,
-        title: "UI / UX Design",
-        whatItIs: "Stop losing customers to confusing layouts. We design intuitive, high-converting interfaces that guide your visitors effortlessly toward the 'Buy' button.",
+        title: "UI & UX Design",
+        whatItIs: "We design intuitive, high-converting interfaces that guide your visitors effortlessly toward the 'Buy' button, focusing on aesthetics and user experience.",
         howItHelps: [
-            "Increase retention",
-            "Boost conversion rates",
-            "Brand-aligned aesthetics",
+            "Visual interface design",
+            "User flow optimization",
+            "Brand alignment",
         ],
         bestFor: "Redesign My UI"
     },
     {
-        icon: Smartphone,
-        title: "Mobile Optimization",
-        whatItIs: "Over 60% of traffic is mobile. We ensure your site works flawlessly on every device, preventing lost sales from poor responsive design.",
+        icon: Monitor,
+        title: "Website Design & Dev",
+        whatItIs: "From personal portfolios to complex e-commerce platforms, we build responsive, fast, and scalable websites tailored to your specific needs.",
         howItHelps: [
-            "Capture mobile leads",
-            "Better Google ranking",
-            "Seamless user experience",
+            "Responsive & fast",
+            "Secure architecture",
+            "Custom functionality",
         ],
-        bestFor: "Fix Mobile View"
+        bestFor: "Get a Custom Build"
     },
     {
         icon: RefreshCw,
-        title: "Website Redesign",
-        whatItIs: "Is your website outdated? We transform legacy sites into modern, high-trust platforms that reflect the true quality of your brand.",
+        title: "Website Redesigning",
+        whatItIs: "Complete overhaul services for existing websites. We modernize your visual identity, improve performance, and fix technical debt.",
         howItHelps: [
-            "Modernize brand image",
-            "Improve trust caused by design",
-            "Fix technical debt",
+            "Visual modernization",
+            "Performance boost",
+            "Mobile responsiveness",
         ],
         bestFor: "Upgrade My Site"
     },
     {
-        icon: Rocket,
-        title: "Landing Pages",
-        whatItIs: "Launch campaigns with confidence. We build dedicated landing pages laser-focused on one goal: turning ad traffic into paying customers.",
+        icon: Bot,
+        title: "AI Voice & Chat Agents",
+        whatItIs: "Deploy intelligent 24/7 support agents. We implement AI voice and chat assistants to handle inquiries, booking, and customer engagement.",
         howItHelps: [
-            "Maximize ad ROI",
-            "A/B test ready",
-            "Clear call-to-actions",
+            "24/7 Availability",
+            "Automated booking",
+            "Instant answers",
         ],
-        bestFor: "Build a Funnel"
+        bestFor: "Automate Support"
+    },
+    {
+        icon: Sparkles,
+        title: "AI Integrations",
+        whatItIs: "Streamline your business with AI. We integrate advanced AI tools into your existing systems for workflow automation and data insights.",
+        howItHelps: [
+            "Workflow automation",
+            "Process optimization",
+            "Custom AI solutions",
+        ],
+        bestFor: "Integrate AI"
     },
     {
         icon: Gauge,
-        title: "Performance SEO",
-        whatItIs: "Get found by the people searching for you. We implement technical SEO and speed optimizations that Google loves.",
+        title: "SEO & Optimization",
+        whatItIs: "Improve your website visibility. We implement on-page SEO, technical enhancements, and speed optimizations to rank higher.",
         howItHelps: [
-            "Higher organic traffic",
+            "Higher rankings",
             "Faster load times",
-            "Better indexing",
+            "Technical SEO",
         ],
-        bestFor: "Boost Rankings"
+        bestFor: "Boost Consistency"
     }
 ];
 

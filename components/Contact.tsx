@@ -16,7 +16,12 @@ import Image from "next/image";
 import { getAvailableSlots, bookAppointment } from "@/app/book/actions";
 import { useVoiceAgent } from "@/hooks/use-voice-agent";
 
-export default function Contact({ hideHero = false }: { hideHero?: boolean }) {
+interface ContactProps {
+    hideHero?: boolean;
+    showPricing?: boolean;
+}
+
+export default function Contact({ hideHero = false, showPricing = true }: ContactProps) {
     // --- BOOKING SYSTEM STATE ---
     const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
     const [availableSlots, setAvailableSlots] = useState<string[]>([]);
@@ -158,146 +163,170 @@ export default function Contact({ hideHero = false }: { hideHero?: boolean }) {
                 )}
 
                 {/* PRICING PACKAGES (New Section) */}
-                <div className="mb-24">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold font-heading text-white mb-4">Transparent Pricing Packages</h2>
-                        <p className="text-neutral-400">Clear investment ranges. No hidden fees. Tailored to your stage.</p>
-                    </div>
+                {showPricing && (
+                    <div className="mb-24">
+                        <div className="text-center mb-12">
+                            <h2 className="text-3xl font-bold font-heading text-white mb-4">Transparent Pricing Packages</h2>
+                            <p className="text-neutral-400">Clear investment ranges. No hidden fees. Tailored to your stage.</p>
+                        </div>
 
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={{
-                            hidden: { opacity: 0 },
-                            visible: {
-                                opacity: 1,
-                                transition: { staggerChildren: 0.1 }
-                            }
-                        }}
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-                    >
 
-                        {/* Package 1: Starter Launch */}
-                        <motion.div variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} className="relative rounded-2xl p-[1px] overflow-hidden group h-full">
-                            <GlowingEffect
-                                spread={40}
-                                glow={true}
-                                disabled={false}
-                                proximity={64}
-                                inactiveZone={0.01}
-                            />
-                            <div className="relative h-full p-6 rounded-2xl bg-neutral-900/40 border border-white/10 hover:border-blue-500/30 hover:bg-neutral-900/60 transition-all flex flex-col hover:-translate-y-1 duration-300">
-                                <h3 className="text-xl font-bold text-white mb-2">Starter Launch</h3>
-                                <p className="text-xs text-neutral-400 mb-6 min-h-[32px]">Perfect for individuals & early-stage ideas</p>
-                                <div className="text-2xl font-bold text-white mb-6">$499 – $699</div>
+                        <motion.div
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            variants={{
+                                hidden: { opacity: 0 },
+                                visible: {
+                                    opacity: 1,
+                                    transition: { staggerChildren: 0.1 }
+                                }
+                            }}
+                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+                        >
 
-                                <ul className="space-y-3 mb-8 flex-grow">
-                                    {["1–2 page website", "Clean UI & basic motion", "Responsive design", "Contact form integration"].map((item, i) => (
-                                        <li key={i} className="flex gap-2 text-sm text-neutral-300">
-                                            <span className="text-blue-500">✓</span> {item}
-                                        </li>
-                                    ))}
-                                </ul>
+                            {/* Package 1: Starter Package */}
+                            <motion.div variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} className="relative rounded-2xl p-[1px] overflow-hidden group h-full">
+                                <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} />
+                                <div className="relative h-full p-6 rounded-2xl bg-neutral-900/40 border border-white/10 hover:border-blue-500/30 hover:bg-neutral-900/60 transition-all flex flex-col hover:-translate-y-1 duration-300">
+                                    <div className="absolute top-4 right-4 px-2 py-1 bg-white/10 text-white text-[10px] font-bold uppercase tracking-wider rounded-md border border-white/5">
+                                        Entry Level
+                                    </div>
+                                    <h3 className="text-xl font-bold text-white mb-2">Starter Package</h3>
+                                    <p className="text-xs text-neutral-400 mb-6 min-h-[32px]">Essential launchpad for individuals</p>
+                                    <div className="text-2xl font-bold text-white mb-6">₹15,000 – ₹20,000</div>
 
-                                <a href="#contact-columns" className="w-full py-3 text-center rounded-lg border border-white/10 bg-white/5 text-white text-sm font-medium hover:bg-blue-600 hover:border-blue-600 transition-all">
-                                    Get Started
-                                </a>
-                            </div>
-                        </motion.div>
+                                    <ul className="space-y-3 mb-8 flex-grow">
+                                        {[
+                                            "Responsive One-Page Site",
+                                            "Contact Form Integration",
+                                            "Basic Search Engine Optimization",
+                                            "Fast Loading Speed",
+                                            "Mobile-First Design",
+                                            "Social Media Links"
+                                        ].map((item, i) => (
+                                            <li key={i} className="flex gap-2 text-sm text-neutral-300">
+                                                <span className="text-blue-500">✓</span> {item}
+                                            </li>
+                                        ))}
+                                    </ul>
 
-                        {/* Package 2: Product / Business (Highlighted) */}
-                        <motion.div variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} className="relative rounded-2xl p-[1px] overflow-hidden group h-full">
-                            <GlowingEffect
-                                spread={40}
-                                glow={true}
-                                disabled={false}
-                                proximity={64}
-                                inactiveZone={0.01}
-                            />
-                            <div className="relative h-full p-6 rounded-2xl bg-blue-900/10 border border-blue-500/30 hover:border-blue-500/60 hover:bg-blue-900/20 transition-all flex flex-col hover:-translate-y-1 duration-300">
-                                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-blue-600 text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-lg z-10">
-                                    Most Popular
+                                    <a href="#contact-columns" className="w-full py-3 text-center rounded-lg border border-white/10 bg-white/5 text-white text-sm font-medium hover:bg-blue-600 hover:border-blue-600 transition-all">
+                                        Get Started
+                                    </a>
                                 </div>
-                                <h3 className="text-xl font-bold text-white mb-2">Business Website</h3>
-                                <p className="text-xs text-neutral-400 mb-6 min-h-[32px]">For startups & growing businesses</p>
-                                <div className="text-2xl font-bold text-white mb-6">$1,200 – $1,600</div>
+                            </motion.div>
 
-                                <ul className="space-y-3 mb-8 flex-grow">
-                                    {["4–6 pages", "UX-focused layout", "Hero animation", "Lead capture setup"].map((item, i) => (
-                                        <li key={i} className="flex gap-2 text-sm text-neutral-200">
-                                            <span className="text-blue-400">✓</span> {item}
-                                        </li>
-                                    ))}
-                                </ul>
+                            {/* Package 2: Premium Package */}
+                            <motion.div variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} className="relative rounded-2xl p-[1px] overflow-hidden group h-full">
+                                <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} />
+                                <div className="relative h-full p-6 rounded-2xl bg-neutral-900/40 border border-white/10 hover:border-purple-500/30 hover:bg-neutral-900/60 transition-all flex flex-col hover:-translate-y-1 duration-300">
+                                    <div className="absolute top-4 right-4 px-2 py-1 bg-purple-500/20 text-purple-300 text-[10px] font-bold uppercase tracking-wider rounded-md border border-purple-500/20">
+                                        Trending
+                                    </div>
+                                    <h3 className="text-xl font-bold text-white mb-2">Premium Package</h3>
+                                    <p className="text-xs text-neutral-400 mb-6 min-h-[32px]">Advanced features & animations</p>
+                                    <div className="text-2xl font-bold text-white mb-6">₹20,000 – ₹25,000</div>
 
-                                <a href="#contact-columns" className="w-full py-3 text-center rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/20">
-                                    Select Plan
-                                </a>
-                            </div>
+                                    <ul className="space-y-3 mb-8 flex-grow">
+                                        {[
+                                            "Multi-page Structure (up to 5)",
+                                            "Smooth Animations (GSAP)",
+                                            "CMS / Blog Support",
+                                            "Enhanced UI/UX Design",
+                                            "Google Maps Integration",
+                                            "Basic Analytics Setup",
+                                            "Newsletter Signup Form"
+                                        ].map((item, i) => (
+                                            <li key={i} className="flex gap-2 text-sm text-neutral-300">
+                                                <span className="text-purple-500">✓</span> {item}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <a href="#contact-columns" className="w-full py-3 text-center rounded-lg border border-white/10 bg-white/5 text-white text-sm font-medium hover:bg-purple-600 hover:border-purple-600 transition-all">
+                                        Go Premium
+                                    </a>
+                                </div>
+                            </motion.div>
+
+                            {/* Package 3: Business Package */}
+                            <motion.div variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} className="relative rounded-2xl p-[1px] overflow-hidden group h-full">
+                                <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} />
+                                <div className="relative h-full p-6 rounded-2xl bg-blue-900/10 border border-blue-500/30 hover:border-blue-500/60 hover:bg-blue-900/20 transition-all flex flex-col hover:-translate-y-1 duration-300">
+                                    <div className="absolute top-4 right-4 px-2 py-1 bg-blue-600 text-white text-[10px] font-bold uppercase tracking-wider rounded-md shadow-lg z-10">
+                                        Most Popular
+                                    </div>
+                                    <h3 className="text-xl font-bold text-white mb-2">Business Package</h3>
+                                    <p className="text-xs text-neutral-400 mb-6 min-h-[32px]">Full-scale corporate solution</p>
+                                    <div className="text-2xl font-bold text-white mb-6">₹25,000 – ₹30,000</div>
+
+                                    <ul className="space-y-3 mb-8 flex-grow">
+                                        {[
+                                            "Advanced E-commerce / Booking",
+                                            "AI Chatbot Integration",
+                                            "User Login & Dashboard",
+                                            "Advanced SEO & Performance",
+                                            "Priority Support (24/7)",
+                                            "Automated Email Workflows",
+                                            "CRM Integration",
+                                            "Payment Gateway Setup",
+                                            "Custom Interactive Elements"
+                                        ].map((item, i) => (
+                                            <li key={i} className="flex gap-2 text-sm text-neutral-200">
+                                                <span className="text-blue-400">✓</span> {item}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <a href="#contact-columns" className="w-full py-3 text-center rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/20">
+                                        Select Business
+                                    </a>
+                                </div>
+                            </motion.div>
+
+                            {/* Package 4: Custom Package */}
+                            <motion.div variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} className="relative rounded-2xl p-[1px] overflow-hidden group h-full">
+                                <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} />
+                                <div className="relative h-full p-6 rounded-2xl bg-neutral-900/40 border border-white/10 hover:border-white/30 hover:bg-neutral-900/60 transition-all flex flex-col hover:-translate-y-1 duration-300">
+                                    <div className="absolute top-4 right-4 px-2 py-1 bg-white text-black text-[10px] font-bold uppercase tracking-wider rounded-md">
+                                        VIP
+                                    </div>
+                                    <h3 className="text-xl font-bold text-white mb-2">Custom Plan</h3>
+                                    <p className="text-xs text-neutral-400 mb-6 min-h-[32px]">Tailored for larger scope</p>
+                                    <div className="text-2xl font-bold text-white mb-6">Let&apos;s Discuss</div>
+
+                                    <ul className="space-y-3 mb-8 flex-grow">
+                                        {[
+                                            "Fully Custom Requirements",
+                                            "Scalable Cloud Architecture",
+                                            "Specific API Integrations",
+                                            "Long-term Partnership",
+                                            "Dedicated Project Manager",
+                                            "Enterprise-Grade Security",
+                                            "White Label Solutions",
+                                            "Advanced Data Analytics",
+                                            "Multi-Language Support",
+                                            "SLA & Post-Launch Maintenance"
+                                        ].map((item, i) => (
+                                            <li key={i} className="flex gap-2 text-sm text-neutral-300">
+                                                <span className="text-white">✓</span> {item}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <a href="#contact-columns" className="w-full py-3 text-center rounded-lg border border-white/10 bg-white/5 text-white text-sm font-medium hover:bg-white hover:text-black hover:border-white transition-all">
+                                        Contact Me
+                                    </a>
+                                </div>
+                            </motion.div>
+
                         </motion.div>
-
-                        {/* Package 3: Motion Experience */}
-                        <motion.div variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} className="relative rounded-2xl p-[1px] overflow-hidden group h-full">
-                            <GlowingEffect
-                                spread={40}
-                                glow={true}
-                                disabled={false}
-                                proximity={64}
-                                inactiveZone={0.01}
-                            />
-                            <div className="relative h-full p-6 rounded-2xl bg-neutral-900/40 border border-white/10 hover:border-purple-500/30 hover:bg-neutral-900/60 transition-all flex flex-col hover:-translate-y-1 duration-300">
-                                <h3 className="text-xl font-bold text-white mb-2">Motion Experience</h3>
-                                <p className="text-xs text-neutral-400 mb-6 min-h-[32px]">Premium feel for modern founders</p>
-                                <div className="text-2xl font-bold text-white mb-6">$2,000 – $2,800</div>
-
-                                <ul className="space-y-3 mb-8 flex-grow">
-                                    {["Everything in Business", "Advanced interactions", "Smooth scroll storytelling", "Lottie / Flow animations"].map((item, i) => (
-                                        <li key={i} className="flex gap-2 text-sm text-neutral-300">
-                                            <span className="text-purple-500">✓</span> {item}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <a href="#contact-columns" className="w-full py-3 text-center rounded-lg border border-white/10 bg-white/5 text-white text-sm font-medium hover:bg-purple-600 hover:border-purple-600 transition-all">
-                                    Let&apos;s Build It
-                                </a>
-                            </div>
-                        </motion.div>
-
-                        {/* Package 4: Custom */}
-                        <motion.div variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }} className="relative rounded-2xl p-[1px] overflow-hidden group h-full">
-                            <GlowingEffect
-                                spread={40}
-                                glow={true}
-                                disabled={false}
-                                proximity={64}
-                                inactiveZone={0.01}
-                            />
-                            <div className="relative h-full p-6 rounded-2xl bg-neutral-900/40 border border-white/10 hover:border-white/30 hover:bg-neutral-900/60 transition-all flex flex-col hover:-translate-y-1 duration-300">
-                                <h3 className="text-xl font-bold text-white mb-2">Custom Scale</h3>
-                                <p className="text-xs text-neutral-400 mb-6 min-h-[32px]">Specific needs & long-term growth</p>
-                                <div className="text-2xl font-bold text-white mb-6">From $3,500+</div>
-
-                                <ul className="space-y-3 mb-8 flex-grow">
-                                    {["Custom Product Strategy", "Tailored Development", "Conversion Optimization", "Ongoing Improvements"].map((item, i) => (
-                                        <li key={i} className="flex gap-2 text-sm text-neutral-300">
-                                            <span className="text-white">✓</span> {item}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <a href="#contact-columns" className="w-full py-3 text-center rounded-lg border border-white/10 bg-white/5 text-white text-sm font-medium hover:bg-white hover:text-black hover:border-white transition-all">
-                                    Contact Me
-                                </a>
-                            </div>
-                        </motion.div>
-
-                    </motion.div>
-                    <p className="text-center text-xs text-neutral-500 mt-8 italic">
-                        *Every project is tailored — packages are flexible based on your needs.
-                    </p>
-                </div>
+                        <p className="text-center text-xs text-neutral-500 mt-8 italic">
+                            *Every project is tailored — packages are flexible based on your needs.
+                        </p>
+                    </div>
+                )}
 
                 {/* --- NEW VOICE AGENT SECTION --- */}
                 <div className="mb-24 relative overflow-hidden rounded-3xl bg-neutral-900/50 border border-white/10 p-8 md:p-12 text-center group">
@@ -430,13 +459,13 @@ export default function Contact({ hideHero = false }: { hideHero?: boolean }) {
                                         proximity={64}
                                         inactiveZone={0.01}
                                     />
-                                    <a href="#" className="relative flex items-center gap-4 p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-green-500/30 transition-all z-10 h-full">
+                                    <a href="https://wa.me/34602256248" target="_blank" rel="noopener noreferrer" className="relative flex items-center gap-4 p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-green-500/30 transition-all z-10 h-full">
                                         <div className="w-12 h-12 rounded-full bg-green-500/10 text-green-400 flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
                                             <MessageSquare size={22} />
                                         </div>
                                         <div>
                                             <div className="font-bold text-white">WhatsApp</div>
-                                            <div className="text-sm text-neutral-400">+1 (234) 567-890</div>
+                                            <div className="text-sm text-neutral-400">+34 602 25 62 48</div>
                                             <div className="text-xs text-green-400 mt-1">Quick questions & faster replies</div>
                                         </div>
                                     </a>
